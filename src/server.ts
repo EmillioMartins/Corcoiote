@@ -1,7 +1,22 @@
-import http from "node:http";
+import express from 'express';
+import errorHandler from './middlewares/errorHandler.ts';
+import requestLogger from './middlewares/requestLogger.ts';
+import CustomerRouter from './routes/customer.router.ts';
 
-http
-	.createServer(() => {
-		console.log("Knock on the door");
-	})
-	.listen(3000);
+const app = express();
+
+app.use(express.json());
+
+app.use(requestLogger);
+
+app.use('/customers', CustomerRouter);
+
+app.use((_request, response) => {
+	response.status(404).json({
+		message: 'Not found!',
+	});
+});
+
+app.use(errorHandler);
+
+app.listen(Number(process.env.PORT));
