@@ -1,0 +1,6 @@
+--watch subistitui o nodemon para o server do node reiniciar automatico
+
+arquivo que vem do .env é uma String logo precisamos trasformar em Number para utilizarmos como porta do server
+com o Number()
+
+--env-file=.env faz com que o node localize o .env e não de erro ao utilizar o process.env.PORT
